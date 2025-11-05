@@ -1,3 +1,6 @@
+let typed = "";
+
+
 const KEY_WIDTH = 50;
 const SPACE_BAR_WIDTH = KEY_WIDTH * 3 + 20;
 let keys = [
@@ -20,23 +23,44 @@ let keys = [
 function setup() {
     createCanvas(600, 600);
     textAlign(CENTER, CENTER);
+    textSize(24);
 }
 
 function draw() {
     background(255);
     drawKeyboard();
+    textAlign(CENTER, CENTER);
+    text(typed, width/2, height/2);
 }
 
-/**
- * Draws the keyboard
- */
+
 function drawKeyboard() {
     for (let k of keys) {
         if (k.name === " ") {
             rect(k.x, k.y, SPACE_BAR_WIDTH, KEY_WIDTH);
-        } else {
+        } 
+        else {
             square(k.x, k.y, KEY_WIDTH);
         }
         text(k.name, k.x, k.y, KEY_WIDTH, KEY_WIDTH);
+    }
+}
+
+function mouseClicked(){
+    for (let k of keys){
+        let space;
+
+        if (k.name === " ") {
+            space = SPACE_BAR_WIDTH;
+        } else {
+            space = KEY_WIDTH;
+}
+        if (mouseX > k.x && 
+            mouseX < k.x + space && 
+            mouseY > k.y && 
+            mouseY < k.y+KEY_WIDTH
+        ){
+            typed += k.name;
+        }
     }
 }
